@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "agent.h"
+#include <cmath>
 
 // PUBLIC
 
 agent::agent(int k, float c) {
 	this->k = k;
 	this->c = c;
-	Nt = new float[k];
+	total_interactions = 0;
+	Nt = new int[k];
 	Qt = new float[k];
 	initialize_choice_counts();
 	initialize_choice_qualities();
@@ -19,7 +21,19 @@ agent::~agent() {
 }
 
 int agent::choose_action() {
-	return 1;
+	float max = adjusting_function(Qt[0], Nt[0] == 0 ? 1 : Nt[0]);
+	int max_ind = 0;
+	for (int i = 0; i < k; i++) {
+		int n = Nt[i] == 0 ? 1 : Nt[i];
+		float new_q = adjusting_function(Qt[i], n);
+
+		if (new_q > max) {
+			max = new_q;
+			max_ind = i;
+		}
+
+		Qt[i] = new_q;
+	}
 }
 
 void agent::check_reward(bool reward) {
@@ -30,7 +44,7 @@ void agent::check_reward(bool reward) {
 
 void agent::initialize_choice_counts() {
 	for (int i = 0; i < k; i++) {
-		Nt[i] = 0.0f;
+		Nt[i] = 0;
 	}
 }
 
@@ -40,5 +54,7 @@ void agent::initialize_choice_qualities() {
 	}
 }
 
-
+float agent::adjusting_function(float current_quality, int current_count) {
+	return (current_quality + c * sqrt(log(total_interactions == 0 ? 1 : total_interactions) / (float)current_count));
+}
 

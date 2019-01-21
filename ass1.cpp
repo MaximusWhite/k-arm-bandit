@@ -7,12 +7,11 @@
 
 const int K = 10;
 
-
-
 int main()
 {	
 
 	for (int i = 0; i < 100; i++) {
+
 		agent* agnt = new agent(K, 2.0);
 		environment* env = new environment(K);
 		env->DBG_show_probabilities();
@@ -20,7 +19,7 @@ int main()
 		for (int j = 0; j < 5000; j++) {
 			int decision = agnt->choose_action();
 			int reward = env->give_reward(decision);
-
+			agnt->check_reward(reward);
 		}
 	}
 }
