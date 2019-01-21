@@ -34,6 +34,10 @@ int agent::choose_action() {
 
 		Qt[i] = new_q;
 	}
+
+	Nt[max_ind] += 1;
+	last_action = max_ind;
+	return max_ind;
 }
 
 void agent::check_reward(bool reward) {

@@ -14,7 +14,7 @@ class environment {
 		// VARS
 		int k;
 		int interaction_count;
-		float optimal_choice;
+		int optimal_choice;
 		float* probabilities;
 
 		// FUNCTIONS

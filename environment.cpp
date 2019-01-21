@@ -37,7 +37,11 @@ void environment::DBG_show_probabilities() {
 }
 
 bool environment::give_reward(int decision) {
-	return true;
+	float real_prob = probabilities[decision];
+	float current_roll = static_cast <float> (rand()) / static_cast <float> (RAND_MAX); // "dice" roll between 0.0 and 1.0
+
+
+	return (current_roll <= real_prob);
 }
 
 // PRIVATE
@@ -50,10 +54,14 @@ void environment::generate_k_probabilities() {
 }
 
 void environment::find_optimal_choice() {
-	float max_ind = 0;
+	int max_ind = 0;
 	float max = probabilities[0];
 	for (int i = 0; i < k; i++) {
+		if (probabilities[i] > max) {
+			max_ind = i;
+			max = probabilities[i];
+		}
 		max = probabilities[i] > max ? i : max;
 	}
-	optimal_choice = max;
+	optimal_choice = max_ind;
 }
