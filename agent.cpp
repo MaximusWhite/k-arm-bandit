@@ -9,9 +9,9 @@ agent::agent(int k, float c) {
 	this->c = c;
 	total_interactions = 0;
 	Nt = new int[k];
+	Rt = new int[k];
 	Qt = new float[k];
-	initialize_choice_counts();
-	initialize_choice_qualities();
+	initialize_arrays();
 }
 
 
@@ -32,33 +32,29 @@ int agent::choose_action() {
 			max_ind = i;
 		}
 
-		Qt[i] = new_q;
 	}
 
 	Nt[max_ind] += 1;
+	total_interactions++;
 	last_action = max_ind;
 	return max_ind;
 }
 
-void agent::check_reward(bool reward) {
-
+void agent::check_reward(int reward) {
+	Qt[last_action] += (reward - Qt[last_action]) / (float)Nt[last_action];
+	Rt[last_action] = reward;
 }
 
 // PRIVATE
 
-void agent::initialize_choice_counts() {
+void agent::initialize_arrays() {
 	for (int i = 0; i < k; i++) {
 		Nt[i] = 0;
-	}
-}
-
-void agent::initialize_choice_qualities() {
-	for (int i = 0; i < k; i++) {
 		Qt[i] = 0.0f;
+		Rt[i] = 0;
 	}
 }
 
 float agent::adjusting_function(float current_quality, int current_count) {
 	return (current_quality + c * sqrt(log(total_interactions == 0 ? 1 : total_interactions) / (float)current_count));
 }
-
