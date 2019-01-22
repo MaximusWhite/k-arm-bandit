@@ -1,5 +1,5 @@
 #pragma once
-#include "agent.h"
+#include "agent_ucb.h"
 class environment {
 	public:
 		// FUNCTIONS

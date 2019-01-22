@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "agent.h"
+#include "agent_ucb.h"
 #include <cmath>
 
 // PUBLIC

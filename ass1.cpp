@@ -3,7 +3,7 @@
 #include "pch.h"
 #include <iostream>
 #include <time.h>  
-#include "agent.h"
+#include "agent_ucb.h"
 #include "environment.h"
 
 const int K = 10;
@@ -22,9 +22,9 @@ int main()
 		env->DBG_show_probabilities();
 
 		for (int j = 0; j < RUNS; j++) {
-			int decision = agnt->choose_action();
-			int reward = env->give_reward(decision);
-			agnt->check_reward(reward);
+			int decision = agnt->choose_action(); // agent decides what action to choose based on its experience
+			int reward = env->give_reward(decision); // environment evaluates decision and gives reward
+			agnt->check_reward(reward); // agent gets reward as feedback
 
 			if (j % 100 == 0 && j != 0) {
 				std::cout << "Step " << j << ": Avg. Reward = " << env->get_avg_reward() << "; Optimal actions: " << env->get_optimal_choices_count() 
