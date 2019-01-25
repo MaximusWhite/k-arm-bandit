@@ -5,6 +5,7 @@
 #include <time.h>  
 #include "agent_ucb.h"
 #include "environment.h"
+#include "agent_ri_rp.h"
 
 const int K = 10;
 const int RUNS = 5000;
