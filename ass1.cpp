@@ -14,6 +14,7 @@ const float C = 1.0;
 int main()
 {	
 	srand((unsigned int)time(NULL));
+
 	for (int i = 0; i < 100; i++) {
 		std::cout << "Run " << i + 1 << " -----------------------------------------" << std::endl;
 
@@ -31,9 +32,7 @@ int main()
 					<< "(" << (env->get_optimal_choices_count() / (float) RUNS) * 100 << "%)" << std::endl;
 			}
 		}
-
 		delete agnt;
 		delete env;
-
 	}
 }
