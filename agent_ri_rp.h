@@ -1,7 +1,7 @@
 #pragma once
 class agent_ri_rp {
 	public:
-		agent_ri_rp();
+		agent_ri_rp(int k);
 		~agent_ri_rp();
 
 		int choose_action();
@@ -14,8 +14,10 @@ class agent_ri_rp {
 		int* Nt;    // number of times arm 1..k was chosen 
 		int* Rt;
 
-		float c;
-		float* Qt;    // quality of each arm 1..k
+		// float c;
+		float alpha;
+		float beta;
+		float* action_probabilities;    // probability of picking each action
 
 		// FUNCTIONS
 		void initialize_arrays();

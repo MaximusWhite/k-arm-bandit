@@ -3,12 +3,12 @@
 #include "pch.h"
 #include <iostream>
 #include <time.h>  
-#include "agent_ucb.h"
-#include "environment.h"
-#include "agent_ri_rp.h"
+#include "agent_ucb.cpp"
+#include "environment.cpp"
+#include "agent_ri_rp.cpp"
 
 const int K = 10;
-const int RUNS = 5000;
+const int RUNS = 500000;
 const float C = 1.0;
 
 
@@ -16,7 +16,7 @@ int main()
 {	
 	srand((unsigned int)time(NULL));
 
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 1; i++) {
 		std::cout << "Run " << i + 1 << " -----------------------------------------" << std::endl;
 
 		agent* agnt = new agent(K, C);
@@ -30,7 +30,7 @@ int main()
 
 			if (j % 100 == 0 && j != 0) {
 				std::cout << "Step " << j << ": Avg. Reward = " << env->get_avg_reward() << "; Optimal actions: " << env->get_optimal_choices_count() 
-					<< "(" << (env->get_optimal_choices_count() / (float) RUNS) * 100 << "%)" << std::endl;
+					<< "(" << (env->get_optimal_choices_count() / (float) (j+1)) * 100 << "%)" << std::endl;
 			}
 		}
 		delete agnt;
