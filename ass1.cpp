@@ -19,8 +19,8 @@ int main()
 	for (int i = 0; i < 1; i++) {
 		std::cout << "Run " << i + 1 << " -----------------------------------------" << std::endl;
 
-		agent* agnt = new agent(K, C);
-		// agent_ri_rp* agnt = new agent_ri_rp(K, 0.5, 0.5, false);
+		// agent* agnt = new agent(K, C);
+		agent_ri_rp* agnt = new agent_ri_rp(K, 0.5, 0.5, false);
 		environment* env = new environment(K);
 		env->DBG_show_probabilities();
 
