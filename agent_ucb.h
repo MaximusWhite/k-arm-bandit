@@ -1,9 +1,10 @@
 #pragma once
-class agent {
+#include "agent.h"
+class agent_ucb : public agent {
 	public:
 		// FUNCTIONS
-		agent(int k, float c);
-		~agent();
+		agent_ucb(int k, float c);
+		~agent_ucb();
 		int choose_action();
 		void check_reward(int reward);
 	private:

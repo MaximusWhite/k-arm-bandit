@@ -1,7 +1,8 @@
 #pragma once
+#include "agent.h"
 #include <map>
 
-class agent_ri_rp {
+class agent_ri_rp : public agent{
 	public:
 		agent_ri_rp(int k, float alpha, float beta, bool is_reward_inaction);
 		~agent_ri_rp();

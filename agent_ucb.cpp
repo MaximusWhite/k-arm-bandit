@@ -4,7 +4,7 @@
 
 // PUBLIC
 
-agent::agent(int k, float c) {
+agent_ucb::agent_ucb(int k, float c) {
 	this->k = k;
 	this->c = c;
 	total_interactions = 0;
@@ -15,12 +15,12 @@ agent::agent(int k, float c) {
 }
 
 
-agent::~agent() {
+agent_ucb::~agent_ucb() {
 	delete[] Nt;
 	delete[] Qt;
 }
 
-int agent::choose_action() {
+int agent_ucb::choose_action() {
 	float max = adjusting_function(Qt[0], Nt[0] == 0 ? 1 : Nt[0]);
 	int max_ind = 0;
 	for (int i = 0; i < k; i++) {
@@ -40,14 +40,14 @@ int agent::choose_action() {
 	return max_ind;
 }
 
-void agent::check_reward(int reward) {
+void agent_ucb::check_reward(int reward) {
 	Qt[last_action] += (reward - Qt[last_action]) / (float)Nt[last_action];
 	Rt[last_action] = reward;
 }
 
 // PRIVATE
 
-void agent::initialize_arrays() {
+void agent_ucb::initialize_arrays() {
 	for (int i = 0; i < k; i++) {
 		Nt[i] = 0;
 		Qt[i] = 0.0f;
@@ -55,6 +55,6 @@ void agent::initialize_arrays() {
 	}
 }
 
-float agent::adjusting_function(float current_quality, int current_count) {
+float agent_ucb::adjusting_function(float current_quality, int current_count) {
 	return (current_quality + c * sqrt(log(total_interactions == 0 ? 1 : total_interactions) / (float)current_count));
 }
